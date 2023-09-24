@@ -66,6 +66,4 @@ public class ProductDetail extends PrimaryEntity {
     @JoinColumn(name = "id_form",referencedColumnName = "id")
     private Form form;
 
-
-
 }

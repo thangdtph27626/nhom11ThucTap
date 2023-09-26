@@ -1,7 +1,6 @@
 package com.thang.demo.repository;
 
-import com.thang.demo.entity.Address;
-import com.thang.demo.entity.ProductDetail;
+import com.thang.demo.entity.*;
 import com.thang.demo.request.SanPhamRequest;
 import com.thang.demo.response.ProductDetailResponse;
 import com.thang.demo.response.SanPhamResponseCustom;
@@ -43,4 +42,5 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, UU
             , nativeQuery = true)
     List<ProductDetailResponse> findProductDetailByIdProduct(@Param("product") String idPrduct);
 
+    ProductDetail findBySizeAndColorAndProduct(Size size, Color color, Product product);
 }

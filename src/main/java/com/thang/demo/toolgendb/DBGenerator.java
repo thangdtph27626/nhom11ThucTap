@@ -1,12 +1,6 @@
 //package com.thang.demo.toolgendb;
 //
-//import com.thang.demo.entity.Category;
-//import com.thang.demo.entity.Color;
-//import com.thang.demo.entity.Form;
-//import com.thang.demo.entity.Product;
-//import com.thang.demo.entity.ProductDetail;
-//import com.thang.demo.entity.Size;
-//import com.thang.demo.entity.User;
+//import com.thang.demo.entity.*;
 //import com.thang.demo.infrastructure.constant.GenderProductDetail;
 //import com.thang.demo.infrastructure.constant.Roles;
 //import com.thang.demo.infrastructure.constant.Status;
@@ -142,10 +136,10 @@
 //        formRepository.save(form1);formRepository.save(form2);
 //
 //
-//        ProductDetail productDetail = ProductDetail.builder().gender(GenderProductDetail.NAM).price(new BigDecimal("100000")).quantity(100).category(category).size(size).product(product1).form(form1).color(color).build();
-//        ProductDetail productDetail1 = ProductDetail.builder().gender(GenderProductDetail.NAM).price(new BigDecimal("300000")).quantity(100).category(category1).size(size1).product(product3).form(form1).color(color).build();
+//        ProductDetail productDetail = ProductDetail.builder().gender(GenderProductDetail.NAM).price(new BigDecimal("100000")).quantity(100).category(category).size(size).product(product1).color(color).form(form1).build();
+//        ProductDetail productDetail1 = ProductDetail.builder().gender(GenderProductDetail.NAM).price(new BigDecimal("300000")).quantity(100).category(category1).size(size1).product(product1).form(form1).color(color).build();
 //        ProductDetail productDetail2 = ProductDetail.builder().gender(GenderProductDetail.NU).price(new BigDecimal("100540")).quantity(100).category(category).size(size2).product(product2).form(form2).color(color2).build();
-//        ProductDetail productDetail3 = ProductDetail.builder().gender(GenderProductDetail.NU).price(new BigDecimal("45550440")).quantity(100).category(category).size(size).product(product).form(form).color(color).build();
+//        ProductDetail productDetail3 = ProductDetail.builder().gender(GenderProductDetail.NU).price(new BigDecimal("45550440")).quantity(100).category(category).size(size).product(product2).form(form).color(color).build();
 //        ProductDetail productDetai4 = ProductDetail.builder().gender(GenderProductDetail.NU).price(new BigDecimal("700000")).quantity(100).category(category1).size(size).product(product).form(form).color(color).build();
 //        ProductDetail productDetail5 = ProductDetail.builder().gender(GenderProductDetail.NAM_VA_NU).price(new BigDecimal("100000")).quantity(100).category(category).size(size2).product(product3).form(form2).color(color1).build();
 //        ProductDetail productDetail6 = ProductDetail.builder().gender(GenderProductDetail.NAM_VA_NU).price(new BigDecimal("100000")).quantity(100).category(category).size(size).product(product1).form(form).color(color1).build();
@@ -183,8 +177,9 @@
 //                    .status(Status.DANG_SU_DUNG)
 //                    .roles(roless.get(i))
 //                    .build();
-//
 //            userReposiory.save(user);
+//            Cart cart = Cart.builder().user(user).build();
+//            cartRepository.save(cart);
 //        }
 //
 //

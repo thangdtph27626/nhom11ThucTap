@@ -9,5 +9,5 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface BillHistoryRepository extends JpaRepository<BillHistory, UUID> {
+public interface BillHistoryRepository extends JpaRepository<BillHistory, String> {
 }

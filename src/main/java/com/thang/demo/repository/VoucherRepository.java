@@ -9,5 +9,5 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface VoucherRepository extends JpaRepository<Voucher, UUID> {
+public interface VoucherRepository extends JpaRepository<Voucher, String> {
 }

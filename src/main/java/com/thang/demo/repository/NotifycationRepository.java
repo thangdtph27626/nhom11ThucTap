@@ -9,5 +9,5 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface NotifycationRepository extends JpaRepository<Notification, UUID> {
+public interface NotifycationRepository extends JpaRepository<Notification, String> {
 }

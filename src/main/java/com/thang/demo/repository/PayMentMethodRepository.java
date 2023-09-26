@@ -9,5 +9,5 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface PayMentMethodRepository extends JpaRepository<PaymentsMethod, UUID> {
+public interface PayMentMethodRepository extends JpaRepository<PaymentsMethod, String> {
 }

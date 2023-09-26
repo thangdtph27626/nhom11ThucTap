@@ -9,5 +9,5 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface CartDetailRepository extends JpaRepository<CartDetail, UUID> {
+public interface CartDetailRepository extends JpaRepository<CartDetail, String> {
 }

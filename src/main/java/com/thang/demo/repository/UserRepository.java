@@ -8,5 +8,5 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface UserRepository extends JpaRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<User, String> {
 }

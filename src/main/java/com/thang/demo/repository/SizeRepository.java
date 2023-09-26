@@ -9,5 +9,5 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface SizeRepository extends JpaRepository<Size, UUID> {
+public interface SizeRepository extends JpaRepository<Size, String> {
 }

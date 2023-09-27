@@ -20,52 +20,7 @@
 <header>
     <!-- Jumbotron -->
     <div class="p-3 text-center bg-white border-bottom">
-        <div class="container">
-            <div class="row gy-3">
-                <!-- Left elements -->
-                <div class="col-lg-2 col-sm-4 col-4">
-                    <a href="https://mdbootstrap.com/" target="_blank" class="float-start">
-                    </a>
-                </div>
-                <!-- Left elements -->
-
-                <!-- Center elements -->
-                <div class="order-lg-last col-lg-5 col-sm-8 col-8">
-                    <div class="d-flex float-end">
-                        <a href="https://github.com/mdbootstrap/bootstrap-material-design"
-                           class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i
-                                class="fas fa-user-alt m-1 me-md-2"></i>
-                            <p class="d-none d-md-block mb-0">Sign in</p></a>
-                        <a href="https://github.com/mdbootstrap/bootstrap-material-design"
-                           class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i
-                                class="fas fa-heart m-1 me-md-2"></i>
-                            <p class="d-none d-md-block mb-0">Wishlist</p></a>
-                        <a href="https://github.com/mdbootstrap/bootstrap-material-design"
-                           class="border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i
-                                class="fas fa-shopping-cart m-1 me-md-2"></i>
-                            <p class="d-none d-md-block mb-0">My cart</p></a>
-                    </div>
-                </div>
-                <!-- Center elements -->
-
-                <!-- Right elements -->
-                <div class="col-lg-5 col-md-12 col-12">
-                    <form action="/home/search" method="get">
-                        <div class="input-group float-center">
-                            <div class="form-outline">
-                                <input type="search" style="border: 1px solid " id="form1" name="name"
-                                       class="form-control"/>
-                                <label class="form-label" for="form1">Search</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary shadow-0">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <!-- Right elements -->
-            </div>
-        </div>
+        <jsp:include page="./component/header.jsp"/>
     </div>
     <!-- Jumbotron -->
 
@@ -202,22 +157,22 @@
                             <div class="col-md-4 col-6 mb-3">
                                 <label class="mb-2 d-block">Quantity</label>
                                 <div class="input-group mb-3" style="width: 170px;">
-                                    <button class="btn btn-white border border-secondary px-3" type="button"
-                                            id="button-addon1" data-mdb-ripple-color="dark"
-                                            onclick="this.parentNode.querySelector('#inputNumber').stepDown()"
-                                    >
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <input type="number" class="form-control text-center border border-secondary"
+<%--                                    <button class="btn btn-white border border-secondary px-3" type="button"--%>
+<%--                                            id="button-addon1" data-mdb-ripple-color="dark"--%>
+<%--                                            onclick="this.parentNode.querySelector('#inputNumber').stepDown()"--%>
+<%--                                    >--%>
+<%--                                        <i class="fas fa-minus"></i>--%>
+<%--                                    </button>--%>
+                                    <input type="hidden" class="form-control text-center border border-secondary"
                                            aria-label="Example text with button addon"
-                                           name="quantity"
-                                           aria-describedby="button-addon1" id="inputNumber" min="0"/>
-                                    <button class="btn btn-white border border-secondary px-3" type="button"
-                                            id="button-addon" data-mdb-ripple-color="dark"
-                                            onclick="this.parentNode.querySelector('#inputNumber').stepUp()"
-                                    >
-                                        <i class="fas fa-plus"></i>
-                                    </button>
+                                           name="quantity" value="1"
+                                           aria-describedby="button-addon1" id="inputNumber" min="1" />
+<%--                                    <button class="btn btn-white border border-secondary px-3" type="button"--%>
+<%--                                            id="button-addon" data-mdb-ripple-color="dark"--%>
+<%--                                            onclick="this.parentNode.querySelector('#inputNumber').stepUp()"--%>
+<%--                                    >--%>
+<%--                                        <i class="fas fa-plus"></i>--%>
+<%--                                    </button>--%>
                                 </div>
                             </div>
                         </div>

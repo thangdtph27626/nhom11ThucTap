@@ -20,11 +20,13 @@ public class PayMentRestController {
     private PayMentService payMentService;
 
     @PostMapping("")
-    public String getAllProductInCart(@RequestBody CreatePayMentMethodTransferRequest createPayMentMethodTransferRequest, HttpServletRequest request){
+    public String getAllProductInCart(@RequestBody CreatePayMentMethodTransferRequest createPayMentMethodTransferRequest, HttpServletRequest request) {
+
         try {
             return payMentService.createVnpay(createPayMentMethodTransferRequest,request);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
+
     }
 }

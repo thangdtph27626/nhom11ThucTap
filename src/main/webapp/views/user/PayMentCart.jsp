@@ -57,8 +57,9 @@
                             <p class="mb-0 text-wrap ">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
                         </div>
                         <div class="d-flex align-items-center justify-content-center flex-column flex-md-row">
-                            <a href="#" class="btn btn-outline-primary me-0 me-md-2 mb-2 mb-md-0 w-100">Register</a>
-                            <a href="#" class="btn btn-primary shadow-0 text-nowrap w-100">Sign in</a>
+                            <button type="button" class="btn btn-primary"  data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                                Add address
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -111,12 +112,12 @@
                             <div class="col-lg-4 mb-3">
                                 <!-- Default checked radio -->
                                 <div class="form-check h-100 border rounded-3">
-                                    <div class="p-3">
+                                    <div class="p-3" onclick="paymentVnPay()">
                                         <input class="form-check-input" type="radio" name="flexRadioDefault"
                                                id="flexRadioDefault1" checked/>
                                         <label class="form-check-label" for="flexRadioDefault1">
-                                            Express delivery <br/>
-                                            <small class="text-muted" onclick="paymentVnPay()">vnpay</small>
+                                            vnpay <br/>
+                                            <small class="text-muted">total pay: ${totalPay} </small>
                                         </label>
                                     </div>
                                 </div>
@@ -261,6 +262,22 @@
     </div>
 </section>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Footer -->
 <footer class="text-center text-lg-start text-muted bg-primary mt-3">
     <!-- Section: Links  -->
@@ -404,9 +421,34 @@
     </div>
 </footer>
 <!-- Footer -->
-<script type="text/javascript" src="../../js/jquery.min.js"></script>
-<script type="text/javascript" src="../../js/mdb.min.js"></script>
+<%--<script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>--%>
+<%--<script type="text/javascript" src="../../js/jquery-3.3.1.min.js"></script>--%>
+<%--<script type="text/javascript" src="../../js/popper.min.js"></script>--%>
+<%--&lt;%&ndash;<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"&ndash;%&gt;--%>
+<%--&lt;%&ndash;        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"&ndash;%&gt;--%>
+<%--&lt;%&ndash;        crossorigin="anonymous"></script>&ndash;%&gt;--%>
+<%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>--%>
+
+<%--<script type="text/javascript" src="../../css/mdb.min.css"></script>--%>
+<%--<script type="text/javascript" src="../../js/new-prism.js"></script>--%>
+<%--<script type="text/javascript" src="../../js/mdbsnippet.min.js"></script>--%>
+<!-- MDB -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"
+></script>
+<!-- PRISM -->
+<script type="text/javascript" src="https://mdbgo.io/wojstan/mdb5-demo-free/dev/js/new-prism.js"></script>
+<!-- MDB SNIPPET -->
+<script type="text/javascript" src="https://mdbgo.io/wojstan/mdb5-demo-free/dev/js/dist/mdbsnippet.min.js"></script>
+<!-- Custom scripts -->
 <script>
+    var products = [
+        <c:forEach items="${products}" var="product">
+        {price: ${product.price}, quantity: ${product.quantity}},
+        </c:forEach>
+    ];
     var totalMoney = products.reduce((acc, product) => acc + (product.price * product.quantity), 0);
     var item = products.length
     document.getElementById("totalBill").textContent = totalMoney + "VND"
@@ -414,20 +456,24 @@
     function paymentVnPay(){
         const data = {
             vnp_Ammount: totalMoney,
-            vnp_TxnRef: ${code},
+            vnp_TxnRef: "${code}",
         };
         $.ajax({
             type: "POST",
             contentType: "application/json",
             url: 'http://localhost:8080/payment',
+            data: JSON.stringify(data),
             dataType: 'json',
             success: function (responseData) {
-                window.open(responseData.data)
+                window.open(responseData.data, '_self')
             },
             error: function (e) {
-                console.log("ERROR : ", e);
+                window.open(e.responseText, '_self')
             }
         });
+    }
+    function openModalCreateAddress() {
+        $("#exampleModal").modal('show');
     }
 </script>
 </body>

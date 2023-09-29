@@ -1,13 +1,22 @@
 package com.thang.demo.service.iml;
 
-import com.thang.demo.infrastructure.constant.VnPayConstant;
+import com.thang.demo.entity.Bill;
+import com.thang.demo.entity.PaymentsMethod;
+import com.thang.demo.entity.User;
+import com.thang.demo.infrastructure.constant.*;
 import com.thang.demo.infrastructure.listener.Config;
+import com.thang.demo.repository.BillRepository;
+import com.thang.demo.repository.PayMentMethodRepository;
+import com.thang.demo.repository.UserRepository;
 import com.thang.demo.request.CreatePayMentMethodTransferRequest;
+import com.thang.demo.request.PayMentVnpayRequest;
 import com.thang.demo.service.PayMentService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -18,6 +27,15 @@ import java.util.*;
  */
 @Service
 public class PayMentServiceImpl implements PayMentService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BillRepository billRepository;
+
+    @Autowired
+    private PayMentMethodRepository payMentMethodRepository;
 
     public String createVnpay(CreatePayMentMethodTransferRequest createPayMentMethodTransferRequest, HttpServletRequest request) throws UnsupportedEncodingException {
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -75,5 +93,41 @@ public class PayMentServiceImpl implements PayMentService {
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = VnPayConstant.vnp_Url + "?" + queryUrl;
         return paymentUrl;
+    }
+
+    @Override
+    public boolean paymentSuccess(String idEmployees, PayMentVnpayRequest request) {
+        Optional<User> account = userRepository.findById(idEmployees);
+        if (!account.isPresent()) {
+
+        }
+        if(request.getVnp_ResponseCode().equals("00")){
+            Bill bill = Bill.builder()
+                    .user(account.get())
+                    .typeBill(TypeBill.OFFLINE)
+                    .statusBill(StatusBill.TAO_HOA_DON)
+                    .code(request.vnp_TxnRef)
+                    .itemDiscount(new BigDecimal("0"))
+                    .totalMoney(new BigDecimal("0"))
+                    .moneyShip(new BigDecimal("0")).build();
+            billRepository.save(bill);
+            PaymentsMethod paymentsMethod = new PaymentsMethod();
+            paymentsMethod.setBill(bill);
+            paymentsMethod.setDescription(request.getVnp_OrderInfo());
+            paymentsMethod.setTotalMoney(new BigDecimal(request.getVnp_Amount()));
+            paymentsMethod.setStatus(StatusPayMents.THANH_TOAN);
+            paymentsMethod.setMethod(StatusMethod.CHUYEN_KHOAN);
+            paymentsMethod.setEmployees(account.get());
+            paymentsMethod.setVnp_TransactionNo(request.getVnp_TransactionNo());
+            payMentMethodRepository.save(paymentsMethod);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public PaymentsMethod findByCodeBill(String code) {
+        Optional<Bill> bill = billRepository.findById(code);
+        return payMentMethodRepository.findByBill(bill.get());
     }
 }

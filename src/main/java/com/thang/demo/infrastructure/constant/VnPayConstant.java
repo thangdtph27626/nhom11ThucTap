@@ -17,8 +17,8 @@ public abstract class VnPayConstant {
     public static String vnp_CurrCode = "VND";
 //    public static String vnp_IpAddr = "0:0:0:0:0:0:0:1";
     public static String vnp_Locale = "vn";
-    public static String vnp_ReturnUrl = "http://localhost:3000/payment/payment-success";
-    public static String vnp_ReturnUrlBuyOnline = "http://localhost:3000/client/payment/payment-success";
+    public static String vnp_ReturnUrl = "http://localhost:8080/payment/payment-success";
+    public static String vnp_ReturnUrlBuyOnline = "http://localhost:8080/payment/payment-success";
 
 //    public static String vnp_ExpireDate = "";
 

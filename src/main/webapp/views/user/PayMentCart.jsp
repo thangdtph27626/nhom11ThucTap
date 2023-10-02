@@ -54,11 +54,13 @@
                     <div class="p-4 d-flex justify-content-between">
                         <div class="">
                             <h5>Have an account?</h5>
-                            <p class="mb-0 text-wrap ">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                            <p class="mb-0 text-wrap " id="addressSelected">Lorem ipsum dolor sit amet, consectetur
+                                adipisicing elit</p>
                         </div>
                         <div class="d-flex align-items-center justify-content-center flex-column flex-md-row">
-                            <button type="button" class="btn btn-primary"  data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-                                Add address
+                            <button type="button" class="btn btn-primary" data-mdb-toggle="modal"
+                                    data-mdb-target="#modall-my-Address" onclick="dataMyAddress()">
+                                My address
                             </button>
                         </div>
                     </div>
@@ -100,21 +102,18 @@
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                            <label class="form-check-label" for="flexCheckDefault">Keep me up to date on news</label>
+                            <label class="form-check-label" >date of receipt of goods : <span id="dayShip"></span></label>
                         </div>
 
                         <hr class="my-4"/>
-
-                        <h5 class="card-title mb-3">Shipping info</h5>
-
+                        <h5 class="card-title mb-3">Payment methods</h5>
                         <div class="row mb-3">
                             <div class="col-lg-4 mb-3">
                                 <!-- Default checked radio -->
                                 <div class="form-check h-100 border rounded-3">
                                     <div class="p-3" onclick="paymentVnPay()">
                                         <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                               id="flexRadioDefault1" checked/>
+                                               id="flexRadioDefault1"/>
                                         <label class="form-check-label" for="flexRadioDefault1">
                                             vnpay <br/>
                                             <small class="text-muted">total pay: ${totalPay} </small>
@@ -127,83 +126,28 @@
                                 <div class="form-check h-100 border rounded-3">
                                     <div class="p-3">
                                         <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                               id="flexRadioDefault2"/>
+                                               id="flexRadioDefault2" checked/>
                                         <label class="form-check-label" for="flexRadioDefault2">
-                                            Post office <br/>
-                                            <small class="text-muted">20-30 days via post </small>
+                                            Payment on delivery <br/>
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 mb-3">
-                                <!-- Default radio -->
-                                <div class="form-check h-100 border rounded-3">
-                                    <div class="p-3">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                               id="flexRadioDefault3"/>
-                                        <label class="form-check-label" for="flexRadioDefault3">
-                                            Self pick-up <br/>
-                                            <small class="text-muted">Come to our shop </small>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
+                        </div>
                         <div class="row">
-                            <div class="col-sm-8 mb-3">
-                                <p class="mb-0">Address</p>
-                                <div class="form-outline">
-                                    <input type="text" id="typeText" placeholder="Type here" class="form-control"/>
-                                </div>
+                            <div class="col-10">
+                                <h5 class="card-title mb-3">Vouchers</h5>
                             </div>
-
-                            <div class="col-sm-4 mb-3">
-                                <p class="mb-0">City</p>
-                                <select class="form-select">
-                                    <option value="1">New York</option>
-                                    <option value="2">Moscow</option>
-                                    <option value="3">Samarqand</option>
-                                </select>
-                            </div>
-
-                            <div class="col-sm-4 mb-3">
-                                <p class="mb-0">House</p>
-                                <div class="form-outline">
-                                    <input type="text" id="typeText" placeholder="Type here" class="form-control"/>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4 col-6 mb-3">
-                                <p class="mb-0">Postal code</p>
-                                <div class="form-outline">
-                                    <input type="text" id="typeText" class="form-control"/>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4 col-6 mb-3">
-                                <p class="mb-0">Zip</p>
-                                <div class="form-outline">
-                                    <input type="text" id="typeText" class="form-control"/>
-                                </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary" data-mdb-toggle="modal"
+                                        data-mdb-target="#modal-voucher">
+                                    Select Voucher
+                                </button>
                             </div>
                         </div>
-
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1"/>
-                            <label class="form-check-label" for="flexCheckDefault1">Save this address</label>
-                        </div>
-
-                        <div class="mb-3">
-                            <p class="mb-0">Message to seller</p>
-                            <div class="form-outline">
-                                <textarea class="form-control" id="textAreaExample1" rows="2"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="float-end">
-                            <button class="btn btn-light border">Cancel</button>
-                            <button class="btn btn-success shadow-0 border">Continue</button>
+                        <div class="row">
+                            <p id="voucherSelect"></p>
                         </div>
                     </div>
                 </div>
@@ -218,21 +162,20 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <p class="mb-2">Discount:</p>
-                        <p class="mb-2 text-danger">- $60.00</p>
+                        <p class="mb-2 text-danger" id="Discount">0</p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <p class="mb-2">Shipping cost:</p>
-                        <p class="mb-2">+ $14.00</p>
+                        <p class="mb-2" id="shipCost">+ $14.00</p>
                     </div>
                     <hr/>
                     <div class="d-flex justify-content-between">
                         <p class="mb-2">Total price:</p>
-                        <p class="mb-2 fw-bold">$149.90</p>
+                        <p class="mb-2 fw-bold" id="totalPrice">$149.90</p>
                     </div>
 
                     <div class="input-group mt-3 mb-4">
-                        <input type="text" class="form-control border" name="" placeholder="Promo code"/>
-                        <button class="btn btn-light text-primary border">Apply</button>
+                        <button class="btn btn-light text-primary border" style="width: 450px;height: 46px;">Order</button>
                     </div>
 
                     <hr/>
@@ -262,164 +205,108 @@
     </div>
 </section>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-voucher" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vouchers</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tbody>
+                    <c:forEach items="${vouchers}" var="voucher">
+                        <tr style="height: 81px" onclick="selectedVoucher('${voucher.code}' ,  '${voucher.id}',${voucher.value})">
+                            <td >${voucher.code} - ${voucher.name}</td>
+                            <td >${voucher.value}</td>
+                            <td >${voucher.quantity}</td>
+                        </tr>
+
+                    </c:forEach>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modall-add-Address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">...</div>
+            <div class="modal-body">
+                <div class="row mt-3">
+                    <div class="col-3">
+                        Province/City
+                    </div>
+                    <div class="col-9">
+                        <select class="form-select" aria-label="Default select example" id="Province">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3 ">
+                        District
+                    </div>
+                    <div class="col-9">
+                        <select class="form-select" aria-label="Default select example" id="District">
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        Wards
+                    </div>
+                    <div class="col-9">
+                        <select class="form-select" aria-label="Default select example" id="Wards">
+                        </select>
+                    </div>
+                </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="addAdress()">Save changes</button>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Footer -->
-<footer class="text-center text-lg-start text-muted bg-primary mt-3">
-    <!-- Section: Links  -->
-    <section class="">
-        <div class="container text-center text-md-start pt-4 pb-4">
-            <!-- Grid row -->
-            <div class="row mt-3">
-                <!-- Grid column -->
-                <div class="col-12 col-lg-3 col-sm-12 mb-2">
-                    <!-- Content -->
-                    <a href="https://mdbootstrap.com/" target="_blank" class="text-white h2">
-                        MDB
-                    </a>
-                    <p class="mt-1 text-white">
-                        © 2023 Copyright: MDBootstrap.com
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <!-- Links -->
-                    <h6 class="text-uppercase text-white fw-bold mb-2">
-                        Store
-                    </h6>
-                    <ul class="list-unstyled mb-4">
-                        <li><a class="text-white-50" href="#">About us</a></li>
-                        <li><a class="text-white-50" href="#">Find store</a></li>
-                        <li><a class="text-white-50" href="#">Categories</a></li>
-                        <li><a class="text-white-50" href="#">Blogs</a></li>
-                    </ul>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <!-- Links -->
-                    <h6 class="text-uppercase text-white fw-bold mb-2">
-                        Information
-                    </h6>
-                    <ul class="list-unstyled mb-4">
-                        <li><a class="text-white-50" href="#">Help center</a></li>
-                        <li><a class="text-white-50" href="#">Money refund</a></li>
-                        <li><a class="text-white-50" href="#">Shipping info</a></li>
-                        <li><a class="text-white-50" href="#">Refunds</a></li>
-                    </ul>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <!-- Links -->
-                    <h6 class="text-uppercase text-white fw-bold mb-2">
-                        Support
-                    </h6>
-                    <ul class="list-unstyled mb-4">
-                        <li><a class="text-white-50" href="#">Help center</a></li>
-                        <li><a class="text-white-50" href="#">Documents</a></li>
-                        <li><a class="text-white-50" href="#">Account restore</a></li>
-                        <li><a class="text-white-50" href="#">My orders</a></li>
-                    </ul>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-12 col-sm-12 col-lg-3">
-                    <!-- Links -->
-                    <h6 class="text-uppercase text-white fw-bold mb-2">Newsletter</h6>
-                    <p class="text-white">Stay in touch with latest updates about our products and offers</p>
-                    <div class="input-group mb-3">
-                        <input type="email" class="form-control border" placeholder="Email" aria-label="Email"
-                               aria-describedby="button-addon2"/>
-                        <button class="btn btn-light border shadow-0" type="button" id="button-addon2"
-                                data-mdb-ripple-color="dark">
-                            Join
-                        </button>
-                    </div>
-                </div>
-                <!-- Grid column -->
+<div class="modal fade" id="modall-my-Address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">My address</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
-            <!-- Grid row -->
-        </div>
-    </section>
-    <!-- Section: Links  -->
+            <div class="modal-body">
+                <div class="row">
+                    <table>
+                        <thead>
+                        </thead>
+                        <tbody id="dataMyAddress">
 
-    <div class="">
-        <div class="container">
-            <div class="d-flex justify-content-between py-4 border-top">
-                <!--- payment --->
-                <div>
-                    <i class="fab fa-lg fa-cc-visa text-white"></i>
-                    <i class="fab fa-lg fa-cc-amex text-white"></i>
-                    <i class="fab fa-lg fa-cc-mastercard text-white"></i>
-                    <i class="fab fa-lg fa-cc-paypal text-white"></i>
+                        </tbody>
+                    </table>
                 </div>
-                <!--- payment --->
-
-                <!--- language selector --->
-                <div class="dropdown dropup">
-                    <a class="dropdown-toggle text-white" href="#" id="Dropdown" role="button"
-                       data-mdb-toggle="dropdown" aria-expanded="false"> <i
-                            class="flag-united-kingdom flag m-0 me-1"></i>English </a>
-
-                    <ul class="dropdown-menu dropdown-menu-endp" aria-labelledby="Dropdown">
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English <i
-                                    class="fa fa-check text-success ms-2"></i></a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider"/>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-poland flag"></i>Polski</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-china flag"></i>中文</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-japan flag"></i>日本語</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-germany flag"></i>Deutsch</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-france flag"></i>Français</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-spain flag"></i>Español</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-russia flag"></i>Русский</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-portugal flag"></i>Português</a>
-                        </li>
-                    </ul>
+                <div class="row">
+                    <button type="button" class="btn btn-primary" data-mdb-toggle="modal"
+                            data-mdb-target="#modall-add-Address" onclick="showModalAddAdress()">
+                        Add address
+                    </button>
                 </div>
-                <!--- language selector --->
             </div>
         </div>
     </div>
-</footer>
+</div>
+<!-- Footer -->
+<jsp:include page="./component/footer.jsp"/>
 <!-- Footer -->
 <%--<script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>--%>
 <%--<script type="text/javascript" src="../../js/jquery-3.3.1.min.js"></script>--%>
@@ -427,13 +314,11 @@
 <%--&lt;%&ndash;<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"&ndash;%&gt;--%>
 <%--&lt;%&ndash;        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"&ndash;%&gt;--%>
 <%--&lt;%&ndash;        crossorigin="anonymous"></script>&ndash;%&gt;--%>
-<%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>--%>
-
-<%--<script type="text/javascript" src="../../css/mdb.min.css"></script>--%>
-<%--<script type="text/javascript" src="../../js/new-prism.js"></script>--%>
-<%--<script type="text/javascript" src="../../js/mdbsnippet.min.js"></script>--%>
+<%--<script src="https://c.min.js"></script>--%>
 <!-- MDB -->
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+
 <script
         type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"
@@ -443,6 +328,7 @@
 <!-- MDB SNIPPET -->
 <script type="text/javascript" src="https://mdbgo.io/wojstan/mdb5-demo-free/dev/js/dist/mdbsnippet.min.js"></script>
 <!-- Custom scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script>
     var products = [
         <c:forEach items="${products}" var="product">
@@ -453,7 +339,7 @@
     var item = products.length
     document.getElementById("totalBill").textContent = totalMoney + "VND"
 
-    function paymentVnPay(){
+    function paymentVnPay() {
         const data = {
             vnp_Ammount: totalMoney,
             vnp_TxnRef: "${code}",
@@ -472,9 +358,286 @@
             }
         });
     }
-    function openModalCreateAddress() {
-        $("#exampleModal").modal('show');
+
+    // begin address
+    var dataAddress = {
+        district: "",
+        province: "",
+        ward: "",
+        provinceId: "",
+        toDistrictId: "",
+        wardCode: "",
+        line: ""
     }
+    getAllProvince()
+
+    function showModalAddAdress() {
+        $("#modall-add-Address").modal("show");
+        getAllProvince();
+        const selectElementProvince = document.getElementById("Province");
+        selectElementProvince.options.length = 0;
+        const selectElementDistrict = document.getElementById("District");
+        selectElementDistrict.options.length = 0;
+        const selectElementWards = document.getElementById("Wards");
+        selectElementWards.options.length = 0;
+    }
+
+    function getAllProvince() {
+
+        const selectElementProvince = document.getElementById("Province");
+        const options = [];
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: 'https://online-gateway.ghn.vn/shiip/public-api/master-data/province',
+            dataType: 'json',
+            headers: {
+                "token": "d73043b1-2777-11ee-b394-8ac29577e80e",
+            },
+            success: function (responseData) {
+                const option = document.createElement("option");
+                option.value = ""
+                option.text = "Open this select menu"
+                options.push(option);
+                responseData.data.map(item => {
+                    const option = document.createElement("option");
+                    option.value = item.ProvinceID + "," + item.ProvinceName;
+                    option.text = item.ProvinceName
+                    options.push(option);
+                })
+                selectElementProvince.options.length = 0;
+
+                for (const option of options) {
+                    selectElementProvince.appendChild(option);
+                }
+            },
+            error: function (e) {
+            }
+        });
+
+    }
+
+    document.getElementById("Province").addEventListener("change", getAllDistrict);
+
+    function getAllDistrict() {
+        const selectElementDistrict = document.getElementById("District");
+        var data = document.getElementById("Province").value
+        console.log(data)
+        const codeProvince = document.getElementById("Province").value.split(",")[0];
+        dataAddress.provinceId = document.getElementById("Province").value.split(",")[0];
+        dataAddress.province = document.getElementById("Province").value.split(",")[1];
+        console.log(dataAddress)
+        const options = [];
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: 'https://online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=' + codeProvince,
+            dataType: 'json',
+            headers: {
+                "token": "d73043b1-2777-11ee-b394-8ac29577e80e",
+            },
+            success: function (responseData) {
+                const option = document.createElement("option");
+                option.value = ""
+                option.text = "Open this select menu"
+                options.push(option);
+                responseData.data.map(item => {
+                    const option = document.createElement("option");
+                    option.value = item.DistrictID + "," + item.DistrictName;
+                    option.text = item.DistrictName
+                    options.push(option);
+                })
+                selectElementDistrict.options.length = 0;
+
+                for (const option of options) {
+                    selectElementDistrict.appendChild(option);
+                }
+            },
+            error: function (e) {
+            }
+        });
+
+    }
+
+    document.getElementById("District").addEventListener("change", getAllWards);
+
+    function getAllWards() {
+        const selectElementWards = document.getElementById("Wards");
+        const codeDistrict = document.getElementById("District").value.split(",")[0];
+        dataAddress.toDistrictId = document.getElementById("District").value.split(",")[0];
+        dataAddress.district = document.getElementById("District").value.split(",")[1];
+        console.log(dataAddress)
+        const options = [];
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: 'https://online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=' + codeDistrict,
+            dataType: 'json',
+            headers: {
+                "token": "d73043b1-2777-11ee-b394-8ac29577e80e",
+            },
+            success: function (responseData) {
+                const option = document.createElement("option");
+                option.value = ""
+                option.text = "Open this select menu"
+                options.push(option);
+                responseData.data.map(item => {
+                    const option = document.createElement("option");
+                    option.value = item.WardCode + "," + item.WardName;
+                    option.text = item.WardName
+                    options.push(option);
+                })
+                selectElementWards.options.length = 0;
+
+                for (const option of options) {
+                    selectElementWards.appendChild(option);
+                }
+            },
+            error: function (e) {
+            }
+        });
+
+    }
+
+    document.getElementById("Wards").addEventListener("change", changWard);
+
+    function changWard() {
+        dataAddress.wardCode = document.getElementById("Wards").value.split(",")[0];
+        dataAddress.ward = document.getElementById("Wards").value.split(",")[1];
+        dataAddress.line = dataAddress.province + "," + dataAddress.district + "," + dataAddress.ward
+        console.log(dataAddress)
+    }
+
+    function addAdress() {
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: 'http://localhost:8080/address',
+            data: JSON.stringify(dataAddress),
+            dataType: 'json',
+            success: function (responseData) {
+                dataAddress = {
+                    district: "",
+                    province: "",
+                    ward: "",
+                    provinceId: "",
+                    toDistrictId: "",
+                    wardCode: "",
+                    line: ""
+                }
+                dataMyAddress()
+                $("#modall-add-Address").modal("hide");
+
+            },
+            error: function (e) {
+            }
+        });
+    }
+
+    function dataMyAddress() {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: 'http://localhost:8080/address',
+            dataType: 'json',
+            success: function (responseData) {
+                $("#dataMyAddress").html(responseData.map(function (address) {
+                    return `
+                <tr style="height: 81px;
+                 padding-left: 13px;" onclick="selectAddress('` + address.province + `','` + address.district + `','` + address.ward + `',` + address.toDistrictId + `,` + address.wardCode + `)">
+                <td>` + address.line + `</td>
+                </tr>
+                `
+                }))
+            },
+            error: function (e) {
+            }
+        });
+        $("#modall-my-Address").modal("show");
+    }
+    selectAddressInDataMyAddress()
+    function selectAddressInDataMyAddress() {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: 'http://localhost:8080/address',
+            dataType: 'json',
+            success: function (responseData) {
+                console.log(responseData)
+                console.log(responseData.length)
+                if (responseData.length == 0) {
+                    document.querySelector("#addressSelected").textContent = "Please add your order address"
+                } else {
+                    document.querySelector("#addressSelected").textContent = responseData[0].line
+                    fetchAllDayShip(responseData[0].toDistrictId , responseData[0].wardCode)
+                    fetchAllMoneyShip(responseData[0].toDistrictId , responseData[0].wardCode)
+                }
+            },
+            error: function (e) {
+            }
+        });
+    }
+
+    function selectAddress(province, district, ward, to_district_id, to_ward_code) {
+        document.querySelector("#addressSelected").textContent = province + ", " + district + ", " + ward
+        fetchAllDayShip(to_district_id, to_ward_code)
+        fetchAllMoneyShip(to_district_id, to_ward_code)
+        $("#modall-my-Address").modal("hide");
+    }
+
+    function fetchAllDayShip(to_district_id, to_ward_code) {
+        console.log(to_district_id + '    ' + to_ward_code)
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: 'https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/leadtime?from_district_id=1485&from_ward_code=1A0607&to_district_id=' + to_district_id + '&to_ward_code=' + to_ward_code + '&service_id=53320',
+            dataType: 'json',
+            headers: {
+                "token": "d73043b1-2777-11ee-b394-8ac29577e80e",
+                "shop_id": "4374133",
+            },
+            success: function (responseData) {
+                document.querySelector("#dayShip").textContent = moment(responseData.data.leadtime * 1000).format('DD/MM/YYYY')
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        });
+    }
+     var moneyShip = 0;
+    function fetchAllMoneyShip(to_district_id, to_ward_code) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: 'https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee?service_type_id=2&insurance_value=&coupon&from_district_id=3440&height=15&length=15&weight=1000&width=15&to_district_id='+to_district_id+'&to_ward_code='+to_ward_code,
+            dataType: 'json',
+            headers: {
+                "token": "d73043b1-2777-11ee-b394-8ac29577e80e",
+                "shop_id": "4374133",
+            },
+            success: function (responseData) {
+                document.querySelector("#shipCost").textContent =responseData.data.total
+                moneyShip = responseData.data.total
+                totalPrice()
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        });
+    }
+
+    // end address
+    var valueVouher = 0;
+   function selectedVoucher(code,id, value){
+       document.querySelector("#voucherSelect").textContent = 'You have selected a promotional code: ' + code
+       document.querySelector("#Discount").textContent = value
+       valueVouher = value
+       totalPrice()
+       $("#modal-voucher").modal("hide");
+   }
+   function totalPrice(){
+       document.querySelector("#totalPrice").textContent = ((totalMoney + moneyShip) - valueVouher) + 'VND'
+   }
 </script>
 </body>
 </html>

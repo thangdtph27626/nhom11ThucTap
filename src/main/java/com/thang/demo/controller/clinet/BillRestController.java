@@ -2,6 +2,7 @@ package com.thang.demo.controller.clinet;
 
 import com.thang.demo.service.CartDetailService;
 import com.thang.demo.service.PayMentService;
+import com.thang.demo.service.VoucherService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +29,9 @@ public class BillRestController {
     @Autowired
     private PayMentService payMentService;
 
+    @Autowired
+    private VoucherService voucherService;
+
     @GetMapping("/payment")
     public String getAllProductInCart(@RequestParam(value = "code", defaultValue = "") String code, Model model){
         if(code.isEmpty()){
@@ -38,6 +42,7 @@ public class BillRestController {
             model.addAttribute("totalPay", payMentService.findByCodeBill(code).getTotalMoney());
         }
         model.addAttribute("products", cartDetailService.findAllCartByIdUser(userId));
+        model.addAttribute("vouchers", voucherService.findAllByEndDateIsLessThan());
         return "user/PayMentCart";
     }
 

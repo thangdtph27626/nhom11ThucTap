@@ -1,6 +1,7 @@
 package com.thang.demo.repository;
 
 import com.thang.demo.entity.Address;
+import com.thang.demo.entity.Cart;
 import com.thang.demo.entity.CartDetail;
 import com.thang.demo.entity.ProductDetail;
 import com.thang.demo.response.CartDetailResponse;
@@ -33,4 +34,6 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, String> 
     List<CartDetailResponse> findAllCartByIdUser(@Param("idUser") String idUser);
 
     Optional<CartDetail> findByProductDetail(ProductDetail productDetail);
+
+    boolean deleteAllByCart(Cart cart);
 }

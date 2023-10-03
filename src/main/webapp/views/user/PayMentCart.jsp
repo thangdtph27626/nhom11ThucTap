@@ -239,6 +239,10 @@
                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" >
+                </div>
                 <div class="row mt-3">
                     <div class="col-3">
                         Province/City
@@ -338,6 +342,8 @@
     var totalMoney = products.reduce((acc, product) => acc + (product.price * product.quantity), 0);
     var item = products.length
     document.getElementById("totalBill").textContent = totalMoney + "VND"
+
+
 
     function paymentVnPay() {
         const data = {
@@ -504,7 +510,7 @@
     function changWard() {
         dataAddress.wardCode = document.getElementById("Wards").value.split(",")[0];
         dataAddress.ward = document.getElementById("Wards").value.split(",")[1];
-        dataAddress.line = dataAddress.province + "," + dataAddress.district + "," + dataAddress.ward
+        dataAddress.line = document.getElementById("exampleFormControlInput1").value
         console.log(dataAddress)
     }
 
@@ -568,7 +574,7 @@
                 if (responseData.length == 0) {
                     document.querySelector("#addressSelected").textContent = "Please add your order address"
                 } else {
-                    document.querySelector("#addressSelected").textContent = responseData[0].line
+                    document.querySelector("#addressSelected").textContent = responseData[0].line + ", " + responseData[0].ward + ", "+ responseData[0].district + ", "+ responseData[0].province
                     fetchAllDayShip(responseData[0].toDistrictId , responseData[0].wardCode)
                     fetchAllMoneyShip(responseData[0].toDistrictId , responseData[0].wardCode)
                 }
@@ -628,16 +634,35 @@
 
     // end address
     var valueVouher = 0;
+    var billRequest = {
+        code: "${code}",
+        phoneNumber: "",
+        address: "",
+        userName: "",
+        itemDiscount: "",
+        totalMoney: totalMoney,
+        moneyShip: "",
+        note: "",
+        idVoucher: ""
+    }
    function selectedVoucher(code,id, value){
        document.querySelector("#voucherSelect").textContent = 'You have selected a promotional code: ' + code
        document.querySelector("#Discount").textContent = value
        valueVouher = value
        totalPrice()
+       billRequest.idVoucher = id
        $("#modal-voucher").modal("hide");
    }
    function totalPrice(){
        document.querySelector("#totalPrice").textContent = ((totalMoney + moneyShip) - valueVouher) + 'VND'
    }
+
+
+   function saveBill() {
+       billRequest.itemDiscount = moneyShip
+
+   }
+
 </script>
 </body>
 </html>

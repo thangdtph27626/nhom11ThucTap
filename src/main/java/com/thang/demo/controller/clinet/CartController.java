@@ -3,7 +3,6 @@ package com.thang.demo.controller.clinet;
 import com.thang.demo.request.CardDetailRequest;
 import com.thang.demo.request.UpdateQuantityInCartRequest;
 import com.thang.demo.service.CartDetailService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/cart")
-public class CartRestController {
+public class CartController {
 
     @Autowired
     private CartDetailService cartDetailService;

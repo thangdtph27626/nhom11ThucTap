@@ -31,13 +31,11 @@
             <!-- Breadcrumb -->
             <nav class="d-flex">
                 <h6 class="mb-0">
-                    <a href="" class="text-white-50">Home</a>
+                    <a href="/home" class="text-white-50">Home</a>
                     <span class="text-white-50 mx-2"> > </span>
-                    <a href="" class="text-white-50">2. Shopping cart</a>
+                    <a href="/cart/cart-detail" class="text-white-50">2. Shopping cart</a>
                     <span class="text-white-50 mx-2"> > </span>
-                    <a href="" class="text-white"><u>3. Order info</u></a>
-                    <span class="text-white-50 mx-2"> > </span>
-                    <a href="" class="text-white-50">4. Payment</a>
+                    <a href="" class="text-white-50">3. Payment</a>
                 </h6>
             </nav>
             <!-- Breadcrumb -->
@@ -65,38 +63,28 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Checkout -->
                 <div class="card shadow-0 border">
                     <div class="p-4">
                         <h5 class="card-title mb-3">Guest checkout</h5>
                         <div class="row">
                             <div class="col-6 mb-3">
-                                <p class="mb-0">First name</p>
+                                <p class="mb-0">full name</p>
                                 <div class="form-outline">
-                                    <input type="text" id="typeText" placeholder="Type here" class="form-control"/>
+                                    <input type="text" id="full-name" placeholder="Type here" class="form-control"/>
                                 </div>
                             </div>
-
-                            <div class="col-6">
-                                <p class="mb-0">Last name</p>
-                                <div class="form-outline">
-                                    <input type="text" id="typeText" placeholder="Type here" class="form-control"/>
-                                </div>
-                            </div>
-
                             <div class="col-6 mb-3">
                                 <p class="mb-0">Phone</p>
                                 <div class="form-outline">
-                                    <input type="tel" id="typePhone" value="+48 " class="form-control"/>
+                                    <input type="tel" id="phone" placeholder="+84 " class="form-control"/>
                                 </div>
                             </div>
 
-                            <div class="col-6 mb-3">
-                                <p class="mb-0">Email</p>
+                            <div class="col-12 mb-3">
+                                <p class="mb-0">Note</p>
                                 <div class="form-outline">
-                                    <input type="email" id="typeEmail" placeholder="example@gmail.com"
-                                           class="form-control"/>
+                                    <textarea name="" id="note" cols="30" style="width: 100%;"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -175,7 +163,7 @@
                     </div>
 
                     <div class="input-group mt-3 mb-4">
-                        <button class="btn btn-light text-primary border" style="width: 450px;height: 46px;">Order</button>
+                        <button class="btn btn-light text-primary border" style="width: 450px;height: 46px;" onclick="saveBill()">Order</button>
                     </div>
 
                     <hr/>
@@ -511,6 +499,7 @@
         dataAddress.wardCode = document.getElementById("Wards").value.split(",")[0];
         dataAddress.ward = document.getElementById("Wards").value.split(",")[1];
         dataAddress.line = document.getElementById("exampleFormControlInput1").value
+        billRequest.address = dataAddress.line + ", "+dataAddress.ward +", "+ dataAddress.district+ ", "+ dataAddress.province
         console.log(dataAddress)
     }
 
@@ -575,6 +564,7 @@
                     document.querySelector("#addressSelected").textContent = "Please add your order address"
                 } else {
                     document.querySelector("#addressSelected").textContent = responseData[0].line + ", " + responseData[0].ward + ", "+ responseData[0].district + ", "+ responseData[0].province
+                    billRequest.address = responseData[0].line + ", " + responseData[0].ward + ", "+ responseData[0].district + ", "+ responseData[0].province
                     fetchAllDayShip(responseData[0].toDistrictId , responseData[0].wardCode)
                     fetchAllMoneyShip(responseData[0].toDistrictId , responseData[0].wardCode)
                 }
@@ -624,6 +614,8 @@
             success: function (responseData) {
                 document.querySelector("#shipCost").textContent =responseData.data.total
                 moneyShip = responseData.data.total
+                billRequest.moneyShip= responseData.data.total
+                console.log(billRequest)
                 totalPrice()
             },
             error: function (e) {
@@ -651,6 +643,7 @@
        valueVouher = value
        totalPrice()
        billRequest.idVoucher = id
+       billRequest.itemDiscount(value + "")
        $("#modal-voucher").modal("hide");
    }
    function totalPrice(){
@@ -660,6 +653,22 @@
 
    function saveBill() {
        billRequest.itemDiscount = moneyShip
+       billRequest.userName = $("#full-name").val().trim();
+       billRequest.phoneNumber = $("#phone").val().trim();
+       billRequest.note = $("#note").val().trim();
+
+       $.ajax({
+           type: "POST",
+           contentType: "application/json",
+           url: 'http://localhost:8080/api/bill',
+           data: JSON.stringify(billRequest),
+           dataType: 'json',
+           success: function (responseData) {
+               window.open('/home', '_self')
+           },
+           error: function (e) {
+           }
+       });
 
    }
 

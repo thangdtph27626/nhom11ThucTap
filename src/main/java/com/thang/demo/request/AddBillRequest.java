@@ -21,5 +21,4 @@ public class AddBillRequest {
     private String moneyShip;
     private String note;
     private String idVoucher;
-
 }

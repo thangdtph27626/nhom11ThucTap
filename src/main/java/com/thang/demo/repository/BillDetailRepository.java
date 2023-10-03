@@ -5,10 +5,13 @@ import com.thang.demo.entity.Bill;
 import com.thang.demo.entity.BillDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
  * @author thangdt
  */
 public interface BillDetailRepository extends JpaRepository<BillDetail, String> {
+
+    List<BillDetail> findAllByBill(Bill bill);
 }

@@ -2,17 +2,23 @@ package com.thang.demo.service.iml;
 
 import com.thang.demo.entity.*;
 import com.thang.demo.infrastructure.constant.StatusBill;
+import com.thang.demo.infrastructure.constant.StatusMethod;
+import com.thang.demo.infrastructure.constant.StatusPayMents;
 import com.thang.demo.infrastructure.constant.TypeBill;
 import com.thang.demo.repository.*;
 import com.thang.demo.request.AddBillRequest;
 import com.thang.demo.response.CartDetailResponse;
+import com.thang.demo.response.CustomBillByUserResponse;
 import com.thang.demo.service.BillService;
+import com.thang.demo.service.PayMentService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.spel.ast.OpAnd;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +55,9 @@ public class BillServiceImpl implements BillService {
 
     @Autowired
     private VoucherRepository voucherRepository;
+
+    @Autowired
+    private PayMentMethodRepository payMentMethodRepository;
 
     @Override
     public Bill createBill(String idUser, AddBillRequest request) {
@@ -87,10 +96,29 @@ public class BillServiceImpl implements BillService {
         BillHistory billHistory = BillHistory.builder().bill(bill.get()).statusBill(StatusBill.TAO_HOA_DON).employees(user.get()).build();
         billHistoryRepository.save(billHistory);
         Optional<Voucher> voucher = voucherRepository.findById(request.getIdVoucher());
-        voucher.get().setQuantity(voucher.get().getQuantity() - 1);
-        voucherRepository.save(voucher.get());
-        VoucherDetail voucherDetail = VoucherDetail.builder().beforPrice(voucher.get().getValue()).bill(bill.get()).voucher(voucher.get()).build();
-        voucherDetailRepository.save(voucherDetail);
+        if(voucher.isPresent()){
+            voucher.get().setQuantity(voucher.get().getQuantity() - 1);
+            voucherRepository.save(voucher.get());
+            VoucherDetail voucherDetail = VoucherDetail.builder().beforPrice(voucher.get().getValue()).bill(bill.get()).voucher(voucher.get()).build();
+            voucherDetailRepository.save(voucherDetail);
+        }
+
+        if(!billCheck.isPresent()){
+            PaymentsMethod paymentsMethod = PaymentsMethod.builder().method(StatusMethod.TIEN_MAT).status(StatusPayMents.TRA_SAU).bill(bill.get()).employees(user.get()).totalMoney(new BigDecimal(request.getTotalMoney())).build();
+            payMentMethodRepository.save(paymentsMethod);
+        }
         return billRepository.save(bill.get());
+    }
+
+    @Override
+    public List<CustomBillByUserResponse> findAllByUser(String idUser) {
+        Optional<User> user = userRepository.findById(idUser);
+        List<CustomBillByUserResponse> responses = new ArrayList<>();
+        billRepository.findAllByUser(user.get()).forEach(item -> {
+            PaymentsMethod paymentsMethod = payMentMethodRepository.findByBill(item);
+            List<BillDetail> billDetails = billDetailRepository.findAllByBill(item);
+            responses.add(new CustomBillByUserResponse(item, paymentsMethod, billDetails));
+        });
+        return responses;
     }
 }

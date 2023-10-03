@@ -13,4 +13,5 @@ import java.util.UUID;
 public interface PayMentMethodRepository extends JpaRepository<PaymentsMethod, String> {
 
     PaymentsMethod findByBill(Bill bill);
+
 }

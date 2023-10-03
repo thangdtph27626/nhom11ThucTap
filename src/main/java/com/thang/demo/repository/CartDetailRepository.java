@@ -35,5 +35,5 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, String> 
 
     Optional<CartDetail> findByProductDetail(ProductDetail productDetail);
 
-    boolean deleteAllByCart(Cart cart);
+    Integer deleteAllByCart(Cart cart);
 }

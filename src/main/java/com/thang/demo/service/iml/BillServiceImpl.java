@@ -1,12 +1,16 @@
 package com.thang.demo.service.iml;
 
 import com.thang.demo.entity.*;
+import com.thang.demo.infrastructure.ConvertDateToLong;
 import com.thang.demo.infrastructure.constant.StatusBill;
 import com.thang.demo.infrastructure.constant.StatusMethod;
 import com.thang.demo.infrastructure.constant.StatusPayMents;
 import com.thang.demo.infrastructure.constant.TypeBill;
 import com.thang.demo.repository.*;
 import com.thang.demo.request.AddBillRequest;
+import com.thang.demo.request.BillRequest;
+import com.thang.demo.request.ChangStatusBillRequest;
+import com.thang.demo.response.BillResponse;
 import com.thang.demo.response.CartDetailResponse;
 import com.thang.demo.response.CustomBillByUserResponse;
 import com.thang.demo.service.BillService;
@@ -18,6 +22,8 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -51,13 +57,14 @@ public class BillServiceImpl implements BillService {
     private CartDetailRepository cartDetailRepository;
 
     @Autowired
+    private PayMentMethodRepository payMentMethodRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private VoucherRepository voucherRepository;
 
-    @Autowired
-    private PayMentMethodRepository payMentMethodRepository;
 
     @Override
     public Bill createBill(String idUser, AddBillRequest request) {
@@ -76,6 +83,7 @@ public class BillServiceImpl implements BillService {
         }
         Optional<Bill>  bill = billRepository.findByCode(request.getCode());
         bill.get().setPhoneNumber(request.getPhoneNumber());
+        bill.get().setStatusBill(StatusBill.CHO_XAC_NHAN);
         bill.get().setAddress(request.getAddress());
         bill.get().setUserName(request.getUserName());
         bill.get().setItemDiscount(new BigDecimal(request.getItemDiscount()));
@@ -93,7 +101,7 @@ public class BillServiceImpl implements BillService {
             billDetailRepository.save(billDetail);
         });
         cartDetailRepository.deleteAllByCart(cart);
-        BillHistory billHistory = BillHistory.builder().bill(bill.get()).statusBill(StatusBill.TAO_HOA_DON).employees(user.get()).build();
+        BillHistory billHistory = BillHistory.builder().bill(bill.get()).statusBill(StatusBill.CHO_XAC_NHAN).employees(user.get()).build();
         billHistoryRepository.save(billHistory);
         Optional<Voucher> voucher = voucherRepository.findById(request.getIdVoucher());
         if(voucher.isPresent()){
@@ -120,5 +128,68 @@ public class BillServiceImpl implements BillService {
             responses.add(new CustomBillByUserResponse(item, paymentsMethod, billDetails));
         });
         return responses;
+    }
+
+    @Override
+    public List<BillResponse> getAll(BillRequest request) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            if (!request.getStartTimeString().isEmpty()) {
+                request.setStartTime(simpleDateFormat.parse(request.getStartTimeString()).getTime());
+            }
+            if (!request.getEndTimeString().isEmpty()) {
+                request.setEndTime(simpleDateFormat.parse(request.getEndTimeString()).getTime());
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return billRepository.getAll(request);
+    }
+
+    @Override
+    public boolean changedStatusbill( ChangStatusBillRequest request) {
+        Optional<Bill> bill = billRepository.findById(request.getId());
+        if (!bill.isPresent()) {
+            return false;
+        }
+        StatusBill statusBill[] = StatusBill.values();
+        int nextIndex = (bill.get().getStatusBill().ordinal() + 1) % statusBill.length;
+        bill.get().setStatusBill(StatusBill.valueOf(statusBill[nextIndex].name()));
+        if (nextIndex > 6) {
+            return false;
+        }
+        if (bill.get().getStatusBill() == StatusBill.DA_THANH_TOAN) {
+            payMentMethodRepository.updateAllByIdBill(request.getId());
+        }
+
+        BillHistory billHistory = new BillHistory();
+        billHistory.setBill(bill.get());
+        billHistory.setStatusBill(StatusBill.valueOf(statusBill[nextIndex].name()));
+        billHistory.setActionDescription(request.getDesc());
+        billHistoryRepository.save(billHistory);
+        billRepository.save(bill.get());
+        return true;
+    }
+
+    @Override
+    public boolean cancelBill(ChangStatusBillRequest request) {
+        Optional<Bill> bill = billRepository.findById(request.getId());
+        if (!bill.isPresent()) {
+            return false;
+        }
+
+        bill.get().setStatusBill(StatusBill.DA_HUY);
+        BillHistory billHistory = new BillHistory();
+        billHistory.setBill(bill.get());
+        billHistory.setStatusBill(bill.get().getStatusBill());
+        billHistory.setActionDescription(request.getDesc());
+        billHistoryRepository.save(billHistory);
+         billRepository.save(bill.get());
+        return true;
+    }
+
+    @Override
+    public Bill findById(String id) {
+        return billRepository.findById(id).orElse(null);
     }
 }

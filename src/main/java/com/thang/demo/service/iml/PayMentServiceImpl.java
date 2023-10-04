@@ -130,4 +130,10 @@ public class PayMentServiceImpl implements PayMentService {
         Optional<Bill> bill = billRepository.findById(code);
         return payMentMethodRepository.findByBill(bill.get());
     }
+
+    @Override
+    public PaymentsMethod findByBill(String idBill) {
+        Optional<Bill> bill = billRepository.findById(idBill);
+        return payMentMethodRepository.findByBill(bill.get());
+    }
 }

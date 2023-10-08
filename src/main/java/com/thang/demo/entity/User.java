@@ -55,6 +55,8 @@ public class User extends PrimaryEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    private String  password;
+
     @Enumerated(EnumType.STRING)
     private Roles roles;
 }

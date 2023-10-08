@@ -1,5 +1,6 @@
 package com.thang.demo.controller.clinet;
 
+import com.thang.demo.controller.base.BaseController;
 import com.thang.demo.entity.Size;
 import com.thang.demo.request.SanPhamRequest;
 import com.thang.demo.response.SanPhamResponseCustom;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/home")
-public class ProductController {
+public class ProductController extends BaseController {
 
     @Autowired
     private ProductService productService;
@@ -37,6 +38,7 @@ public class ProductController {
 
     @GetMapping("")
     public String findProduct(Model model){
+        System.out.println(session.getUserId());
         SanPhamRequest request = new SanPhamRequest();
         model.addAttribute("listProduct", productService.findProduct(request));
         return "user/index";

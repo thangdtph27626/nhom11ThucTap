@@ -63,6 +63,7 @@ public class SecurityConfig {
                 .logout(l -> l.logoutSuccessUrl("/").permitAll())
                 .authenticationProvider(authenticationProvider())
                 .httpBasic(Customizer.withDefaults())
+                .exceptionHandling(e -> e.accessDeniedHandler(new CustomAccessDeniedHandler()))
                 .build();
 
     }
@@ -92,9 +93,5 @@ public class SecurityConfig {
         return source;
     }
 
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().anyRequest().requestMatchers("/images/**", "/js/**", "/webjars/**", "/css/**");
-//    }
 
 }

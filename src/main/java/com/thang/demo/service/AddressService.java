@@ -14,4 +14,6 @@ public interface AddressService {
     List<Address> findByUser(String idUser);
 
     Address creat(String idUser, AddAddressRequest request);
+
+    boolean delete(String id);
 }

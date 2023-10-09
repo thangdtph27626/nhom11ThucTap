@@ -1,5 +1,6 @@
 package com.thang.demo.controller.clinet;
 
+import com.thang.demo.controller.base.BaseController;
 import com.thang.demo.service.BillService;
 import com.thang.demo.service.UserService;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
@@ -29,8 +30,8 @@ public class UserController {
 
     @GetMapping("/detail")
     public String detailUser(Model model){
-        model.addAttribute("user", userService.findById(userId));
-        model.addAttribute("bills", billService.findAllByUser(userId));
+        model.addAttribute("user", userService.findById(session.getUserId()));
+        model.addAttribute("bills", billService.findAllByUser(session.getUserId()));
         return "user/detail-user";
     }
 }

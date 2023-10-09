@@ -51,7 +51,7 @@
                             <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
                             <label class="form-check-label" for="form1Example3"> Remember me </label>
                         </div>
-                        <a href="#!">Forgot password?</a>
+                        <a href="/register">I don't have an account?</a>
                     </div>
                     <!-- Submit button -->
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>

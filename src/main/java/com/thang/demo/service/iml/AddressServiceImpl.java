@@ -38,4 +38,10 @@ public class AddressServiceImpl implements AddressService {
         Address address = Address.builder().line(request.getLine()).district(request.getDistrict()).province(request.getProvince()).ward(request.getWard()).user(user.get()).provinceId(request.getProvinceId()).toDistrictId(request.getToDistrictId()).wardCode(request.getWardCode()).status(Status.DANG_SU_DUNG).build();
         return addressRepository.save(address);
     }
+
+    @Override
+    public boolean delete(String id) {
+        addressRepository.deleteById(id);
+        return true;
+    }
 }

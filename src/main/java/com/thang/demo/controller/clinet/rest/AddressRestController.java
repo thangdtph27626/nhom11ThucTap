@@ -1,5 +1,6 @@
 package com.thang.demo.controller.clinet.rest;
 
+import com.thang.demo.controller.base.BaseController;
 import com.thang.demo.entity.Address;
 import com.thang.demo.request.AddAddressRequest;
 import com.thang.demo.service.AddressService;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/address")
-public class AddressRestController {
+public class AddressRestController extends BaseController {
 
     @Value("${user}")
     private String userId;
@@ -24,12 +25,17 @@ public class AddressRestController {
 
     @PostMapping
     public Address create(@RequestBody AddAddressRequest request){
-        return addressService.creat(userId, request);
+        return addressService.creat(session.getUserId(), request);
     }
 
     @GetMapping
     public List<Address> findByUser(){
-        return addressService.findByUser(userId);
+        return addressService.findByUser(session.getUserId());
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable("id") String id){
+        return addressService.delete(id);
     }
 
 }

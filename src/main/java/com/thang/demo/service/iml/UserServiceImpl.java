@@ -1,7 +1,9 @@
 package com.thang.demo.service.iml;
 
+import com.thang.demo.entity.Cart;
 import com.thang.demo.entity.User;
 import com.thang.demo.infrastructure.constant.Roles;
+import com.thang.demo.repository.CartRepository;
 import com.thang.demo.repository.UserRepository;
 import com.thang.demo.request.UserRequest;
 import com.thang.demo.response.RegisterResponse;
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     @Override
     public User findById(String id) {
         return userRepository.findById(id).orElse(null);
@@ -34,6 +39,8 @@ public class UserServiceImpl implements UserService {
         }
         User user = User.builder().roles(Roles.USER).email(request.getGmail()).fullName(request.getFullName()).password(new BCryptPasswordEncoder().encode(request.getPass())).build();
         userRepository.save(user);
+        Cart cart = Cart.builder().user(user).build();
+        cartRepository.save(cart);
         return new RegisterResponse("Success", 200);
     }
 }

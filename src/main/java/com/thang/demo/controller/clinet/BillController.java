@@ -1,5 +1,6 @@
 package com.thang.demo.controller.clinet;
 
+import com.thang.demo.controller.base.BaseController;
 import com.thang.demo.service.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @RequestMapping("/bill")
-public class BillController {
+public class BillController extends BaseController {
 
-    @Value("${user}")
-    private String userId;
 
     @Autowired
     private CartDetailService cartDetailService;
@@ -48,7 +47,7 @@ public class BillController {
             model.addAttribute("code", code);
             model.addAttribute("totalPay", payMentService.findByCodeBill(code).getTotalMoney());
         }
-        model.addAttribute("products", cartDetailService.findAllCartByIdUser(userId));
+        model.addAttribute("products", cartDetailService.findAllCartByIdUser(session.getUserId()));
         model.addAttribute("vouchers", voucherService.findAllByEndDateIsLessThan());
         return "user/PayMentCart";
     }

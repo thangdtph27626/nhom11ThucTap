@@ -17,9 +17,6 @@ import java.util.List;
 @RequestMapping("/address")
 public class AddressRestController extends BaseController {
 
-    @Value("${user}")
-    private String userId;
-
     @Autowired
     private AddressService addressService;
 

@@ -1,5 +1,6 @@
 package com.thang.demo.controller.clinet.rest;
 
+import com.thang.demo.controller.base.BaseController;
 import com.thang.demo.entity.Bill;
 import com.thang.demo.request.AddBillRequest;
 import com.thang.demo.service.BillService;
@@ -15,16 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/bill")
-public class BillRestController {
+public class BillRestController extends BaseController {
 
-    @Value("${user}")
-    private String userId;
 
     @Autowired
     private BillService billService;
 
     @PostMapping
     public Bill createBill(@RequestBody AddBillRequest request){
-        return  billService.createBill(userId, request);
+        return  billService.createBill(session.getUserId(), request);
     }
 }

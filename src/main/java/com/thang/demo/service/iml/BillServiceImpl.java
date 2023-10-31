@@ -2,14 +2,12 @@ package com.thang.demo.service.iml;
 
 import com.thang.demo.entity.*;
 import com.thang.demo.infrastructure.ConvertDateToLong;
-import com.thang.demo.infrastructure.constant.StatusBill;
-import com.thang.demo.infrastructure.constant.StatusMethod;
-import com.thang.demo.infrastructure.constant.StatusPayMents;
-import com.thang.demo.infrastructure.constant.TypeBill;
+import com.thang.demo.infrastructure.constant.*;
 import com.thang.demo.repository.*;
 import com.thang.demo.request.AddBillRequest;
 import com.thang.demo.request.BillRequest;
 import com.thang.demo.request.ChangStatusBillRequest;
+import com.thang.demo.response.BillDetailResponse;
 import com.thang.demo.response.BillResponse;
 import com.thang.demo.response.CartDetailResponse;
 import com.thang.demo.response.CustomBillByUserResponse;
@@ -184,6 +182,12 @@ public class BillServiceImpl implements BillService {
         billHistory.setStatusBill(bill.get().getStatusBill());
         billHistory.setActionDescription(request.getDesc());
         billHistoryRepository.save(billHistory);
+        List<BillDetailResponse> billDetailResponse = billDetailRepository.findAllByIdBill(bill.get().getId());
+        billDetailResponse.forEach(item -> {
+            Optional<ProductDetail> productDetail = productDetailRepository.findById(item.getIdProduct());
+            productDetail.get().setQuantity(item.getQuantity() + productDetail.get().getQuantity());
+            productDetailRepository.save(productDetail.get());
+        });
          billRepository.save(bill.get());
         return true;
     }

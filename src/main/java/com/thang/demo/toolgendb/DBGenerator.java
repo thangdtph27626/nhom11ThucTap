@@ -1,12 +1,7 @@
 //package com.thang.demo.toolgendb;
 //
-//import com.thang.demo.entity.Category;
-//import com.thang.demo.entity.Color;
-//import com.thang.demo.entity.Form;
-//import com.thang.demo.entity.Product;
-//import com.thang.demo.entity.ProductDetail;
-//import com.thang.demo.entity.Size;
-//import com.thang.demo.entity.User;
+//import com.thang.demo.entity.*;
+//import com.thang.demo.infrastructure.ConvertDateToLong;
 //import com.thang.demo.infrastructure.constant.GenderProductDetail;
 //import com.thang.demo.infrastructure.constant.Roles;
 //import com.thang.demo.infrastructure.constant.Status;
@@ -35,6 +30,7 @@
 //import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.context.ConfigurableApplicationContext;
 //import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //
 //import java.math.BigDecimal;
 //import java.util.ArrayList;
@@ -142,10 +138,10 @@
 //        formRepository.save(form1);formRepository.save(form2);
 //
 //
-//        ProductDetail productDetail = ProductDetail.builder().gender(GenderProductDetail.NAM).price(new BigDecimal("100000")).quantity(100).category(category).size(size).product(product1).form(form1).color(color).build();
-//        ProductDetail productDetail1 = ProductDetail.builder().gender(GenderProductDetail.NAM).price(new BigDecimal("300000")).quantity(100).category(category1).size(size1).product(product3).form(form1).color(color).build();
+//        ProductDetail productDetail = ProductDetail.builder().gender(GenderProductDetail.NAM).price(new BigDecimal("100000")).quantity(100).category(category).size(size).product(product1).color(color).form(form1).build();
+//        ProductDetail productDetail1 = ProductDetail.builder().gender(GenderProductDetail.NAM).price(new BigDecimal("300000")).quantity(100).category(category1).size(size1).product(product1).form(form1).color(color).build();
 //        ProductDetail productDetail2 = ProductDetail.builder().gender(GenderProductDetail.NU).price(new BigDecimal("100540")).quantity(100).category(category).size(size2).product(product2).form(form2).color(color2).build();
-//        ProductDetail productDetail3 = ProductDetail.builder().gender(GenderProductDetail.NU).price(new BigDecimal("45550440")).quantity(100).category(category).size(size).product(product).form(form).color(color).build();
+//        ProductDetail productDetail3 = ProductDetail.builder().gender(GenderProductDetail.NU).price(new BigDecimal("45550440")).quantity(100).category(category).size(size).product(product2).form(form).color(color).build();
 //        ProductDetail productDetai4 = ProductDetail.builder().gender(GenderProductDetail.NU).price(new BigDecimal("700000")).quantity(100).category(category1).size(size).product(product).form(form).color(color).build();
 //        ProductDetail productDetail5 = ProductDetail.builder().gender(GenderProductDetail.NAM_VA_NU).price(new BigDecimal("100000")).quantity(100).category(category).size(size2).product(product3).form(form2).color(color1).build();
 //        ProductDetail productDetail6 = ProductDetail.builder().gender(GenderProductDetail.NAM_VA_NU).price(new BigDecimal("100000")).quantity(100).category(category).size(size).product(product1).form(form).color(color1).build();
@@ -182,13 +178,26 @@
 //                    .citizenIdentity(citizenIdentities.get(i))
 //                    .status(Status.DANG_SU_DUNG)
 //                    .roles(roless.get(i))
+//                    .password(new BCryptPasswordEncoder().encode("123456"))
 //                    .build();
-//
 //            userReposiory.save(user);
+//            Cart cart = Cart.builder().user(user).build();
+//            cartRepository.save(cart);
 //        }
 //
 //
 //        productDetailRepository.save(productDetail);
+//        Voucher voucher1 = Voucher.builder().code("VC889")
+//                .name("Sale ngày khai trương").value(new BigDecimal(100000))
+//                .startDate(new ConvertDateToLong().dateToLong("25/05/2023")).endDate(new ConvertDateToLong().dateToLong("01/12/2023"))
+//                .quantity(100).status(Status.DANG_SU_DUNG).build();
+//        Voucher voucher2 = Voucher.builder().code("VC8f89")
+//                .name("Sale sốc").value(new BigDecimal(100000))
+//                .startDate(new ConvertDateToLong().dateToLong("15/06/2023")).endDate(new ConvertDateToLong().dateToLong("25/12/2023"))
+//                .quantity(100).status(Status.DANG_SU_DUNG).build();
+//        voucherRepository.save(voucher2);
+//        voucherRepository.save(voucher1);
+//
 //    }
 //
 //    public static void main(String[] args) {

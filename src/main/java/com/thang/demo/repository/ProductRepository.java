@@ -13,7 +13,7 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface ProductRepository extends JpaRepository<Product, UUID> {
+public interface ProductRepository extends JpaRepository<Product, String> {
 
     @Query(value = """
             select\s

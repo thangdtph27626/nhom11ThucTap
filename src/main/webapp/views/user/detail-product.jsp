@@ -20,51 +20,7 @@
 <header>
     <!-- Jumbotron -->
     <div class="p-3 text-center bg-white border-bottom">
-        <div class="container">
-            <div class="row gy-3">
-                <!-- Left elements -->
-                <div class="col-lg-2 col-sm-4 col-4">
-                    <a href="https://mdbootstrap.com/" target="_blank" class="float-start">
-                    </a>
-                </div>
-                <!-- Left elements -->
-
-                <!-- Center elements -->
-                <div class="order-lg-last col-lg-5 col-sm-8 col-8">
-                    <div class="d-flex float-end">
-                        <a href="https://github.com/mdbootstrap/bootstrap-material-design"
-                           class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i
-                                class="fas fa-user-alt m-1 me-md-2"></i>
-                            <p class="d-none d-md-block mb-0">Sign in</p></a>
-                        <a href="https://github.com/mdbootstrap/bootstrap-material-design"
-                           class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i
-                                class="fas fa-heart m-1 me-md-2"></i>
-                            <p class="d-none d-md-block mb-0">Wishlist</p></a>
-                        <a href="https://github.com/mdbootstrap/bootstrap-material-design"
-                           class="border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i
-                                class="fas fa-shopping-cart m-1 me-md-2"></i>
-                            <p class="d-none d-md-block mb-0">My cart</p></a>
-                    </div>
-                </div>
-                <!-- Center elements -->
-
-                <!-- Right elements -->
-                <div class="col-lg-5 col-md-12 col-12">
-                    <form action="/home/search" method="get">
-                        <div class="input-group float-center">
-                            <div class="form-outline">
-                                <input type="search" style="border: 1px solid " id="form1" name="name" class="form-control" />
-                                <label class="form-label" for="form1">Search</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary shadow-0">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <!-- Right elements -->
-            </div>
-        </div>
+        <jsp:include page="./component/header.jsp"/>
     </div>
     <!-- Jumbotron -->
 
@@ -76,7 +32,7 @@
                 <h6 class="mb-0">
                     <a href="/home" class="text-white-50">Home</a>
                     <span class="text-white-50 mx-2"> > </span>
-                    <a  class="text-white"><u>detail product</u></a>
+                    <a class="text-white"><u>detail product</u></a>
                 </h6>
             </nav>
             <!-- Breadcrumb -->
@@ -176,50 +132,57 @@
 
                     <hr/>
 
-                    <div class="row mb-4">
-                        <div class="col-md-4 col-6">
-                            <label class="mb-2">Color</label>
-                            <select class="form-select border border-secondary" id="myComboxColor" style="height: 35px;">
-                                <c:forEach items="${product.colors}" var="color">
-                                    <option value="${color.id}">${color.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div class="col-md-4 col-6">
-                            <label class="mb-2">Size</label>
-                            <select class="form-select border border-secondary" id="myComboxSize" style="height: 35px;">
-                                <c:forEach items="${product.sizes}" var="size">
-                                    <option value="${size.id}">${size.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <!-- col.// -->
-                        <div class="col-md-4 col-6 mb-3">
-                            <label class="mb-2 d-block">Quantity</label>
-                            <div class="input-group mb-3" style="width: 170px;">
-                                <button class="btn btn-white border border-secondary px-3" type="button"
-                                        id="button-addon1" data-mdb-ripple-color="dark"
-                                        onclick="this.parentNode.querySelector('#inputNumber').stepDown()"
-                                >
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <input type="number" class="form-control text-center border border-secondary"
-                                       aria-label="Example text with button addon"
-                                       aria-describedby="button-addon1" id="inputNumber" min="0"/>
-                                <button class="btn btn-white border border-secondary px-3" type="button"
-                                        id="button-addon" data-mdb-ripple-color="dark"
-                                        onclick="this.parentNode.querySelector('#inputNumber').stepUp()"
-                                >
-                                    <i class="fas fa-plus"></i>
-                                </button>
+                    <form action="/cart" method="post" >
+                        <input type="hidden" name="idProduct" value="${id}" id="">
+                        <div class="row mb-4">
+                            <div class="col-md-4 col-6">
+                                <label class="mb-2">Color</label>
+                                <select class="form-select border border-secondary" id="myComboxColor" name="idColor"
+                                        style="height: 35px;">
+                                    <c:forEach items="${product.colors}" var="color">
+                                        <option value="${color.id}">${color.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <label class="mb-2">Size</label>
+                                <select class="form-select border border-secondary" id="myComboxSize" name="idSize"
+                                        style="height: 35px;">
+                                    <c:forEach items="${product.sizes}" var="size">
+                                        <option value="${size.id}">${size.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <!-- col.// -->
+                            <div class="col-md-4 col-6 mb-3">
+                                <label class="mb-2 d-block">Quantity</label>
+                                <div class="input-group mb-3" style="width: 170px;">
+                                    <button class="btn btn-white border border-secondary px-3" type="button"
+                                            id="button-addon1" data-mdb-ripple-color="dark"
+                                            onclick="this.parentNode.querySelector('#inputNumber').stepDown()"
+                                    >
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" class="form-control text-center border border-secondary"
+                                           aria-label="Example text with button addon"
+                                           name="quantity" value="1"
+                                           aria-describedby="button-addon1" id="inputNumber" min="1" />
+                                    <button class="btn btn-white border border-secondary px-3" type="button"
+                                            id="button-addon" data-mdb-ripple-color="dark"
+                                            onclick="this.parentNode.querySelector('#inputNumber').stepUp()"
+                                    >
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
-                    <a href="#" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart
-                    </a>
-                    <a href="#" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i
-                            class="me-1 fa fa-heart fa-lg"></i> Save </a>
+                        <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
+                        <button type="submit" class="btn btn-primary shadow-0"><i
+                                class="me-1 fa fa-shopping-basket"></i> Add to cart
+                        </button>
+                        <a href="#" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i
+                                class="me-1 fa fa-heart fa-lg"></i> Save </a>
+                    </form>
                 </div>
             </main>
         </div>
@@ -233,13 +196,15 @@
         <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
             <a href="/product-detail/${product.id}">
                 <div class="card w-100 my-2 shadow-2-strong">
-                    <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/10.webp" class="card-img-top" style="aspect-ratio: 1 / 1" />
+                    <img src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/10.webp"
+                         class="card-img-top" style="aspect-ratio: 1 / 1"/>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">${product.name}</h5>
                         <p class="card-text">${product.priceMin} - ${product.priceMax}</p>
                         <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
                             <a href="#!" class="btn btn-primary shadow-0 me-1">Add to cart</a>
-                            <p class="btn btn-light border px-2 pt-2 icon-hover" style="margin: 0px"> ${product.quantity} </p>
+                            <p class="btn btn-light border px-2 pt-2 icon-hover"
+                               style="margin: 0px"> ${product.quantity} </p>
                         </div>
                     </div>
                 </div>
@@ -249,151 +214,14 @@
 </div>
 
 <!-- Footer -->
-<footer class="text-center text-lg-start text-muted bg-primary mt-3">
-    <!-- Section: Links  -->
-    <section class="">
-        <div class="container text-center text-md-start pt-4 pb-4">
-            <!-- Grid row -->
-            <div class="row mt-3">
-                <!-- Grid column -->
-                <div class="col-12 col-lg-3 col-sm-12 mb-2">
-                    <!-- Content -->
-                    <p class="mt-1 text-white">
-                        © 2023 Copyright: Bee.com
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <!-- Links -->
-                    <h6 class="text-uppercase text-white fw-bold mb-2">
-                        Store
-                    </h6>
-                    <ul class="list-unstyled mb-4">
-                        <li><a class="text-white-50" href="#">About us</a></li>
-                        <li><a class="text-white-50" href="#">Find store</a></li>
-                        <li><a class="text-white-50" href="#">Categories</a></li>
-                        <li><a class="text-white-50" href="#">Blogs</a></li>
-                    </ul>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <!-- Links -->
-                    <h6 class="text-uppercase text-white fw-bold mb-2">
-                        Information
-                    </h6>
-                    <ul class="list-unstyled mb-4">
-                        <li><a class="text-white-50" href="#">Help center</a></li>
-                        <li><a class="text-white-50" href="#">Money refund</a></li>
-                        <li><a class="text-white-50" href="#">Shipping info</a></li>
-                        <li><a class="text-white-50" href="#">Refunds</a></li>
-                    </ul>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <!-- Links -->
-                    <h6 class="text-uppercase text-white fw-bold mb-2">
-                        Support
-                    </h6>
-                    <ul class="list-unstyled mb-4">
-                        <li><a class="text-white-50" href="#">Help center</a></li>
-                        <li><a class="text-white-50" href="#">Documents</a></li>
-                        <li><a class="text-white-50" href="#">Account restore</a></li>
-                        <li><a class="text-white-50" href="#">My orders</a></li>
-                    </ul>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-12 col-sm-12 col-lg-3">
-                    <!-- Links -->
-                    <h6 class="text-uppercase text-white fw-bold mb-2">Newsletter</h6>
-                    <p class="text-white">Stay in touch with latest updates about our products and offers</p>
-                    <div class="input-group mb-3">
-                        <input type="email" class="form-control border" placeholder="Email" aria-label="Email"
-                               aria-describedby="button-addon2"/>
-                        <button class="btn btn-light border shadow-0" type="button" id="button-addon2"
-                                data-mdb-ripple-color="dark">
-                            Join
-                        </button>
-                    </div>
-                </div>
-                <!-- Grid column -->
-            </div>
-            <!-- Grid row -->
-        </div>
-    </section>
-    <!-- Section: Links  -->
-
-    <div class="">
-        <div class="container">
-            <div class="d-flex justify-content-between py-4 border-top">
-                <!--- payment --->
-                <div>
-                    <i class="fab fa-lg fa-cc-visa text-white"></i>
-                    <i class="fab fa-lg fa-cc-amex text-white"></i>
-                    <i class="fab fa-lg fa-cc-mastercard text-white"></i>
-                    <i class="fab fa-lg fa-cc-paypal text-white"></i>
-                </div>
-                <!--- payment --->
-
-                <!--- language selector --->
-                <div class="dropdown dropup">
-                    <a class="dropdown-toggle text-white" href="#" id="Dropdown" role="button"
-                       data-mdb-toggle="dropdown" aria-expanded="false"> <i
-                            class="flag-united-kingdom flag m-0 me-1"></i>English </a>
-
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="Dropdown">
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English <i
-                                    class="fa fa-check text-success ms-2"></i></a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider"/>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-poland flag"></i>Polski</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-china flag"></i>中文</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-japan flag"></i>日本語</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-germany flag"></i>Deutsch</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-france flag"></i>Français</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-spain flag"></i>Español</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-russia flag"></i>Русский</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-portugal flag"></i>Português</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--- language selector --->
-            </div>
-        </div>
-    </div>
-</footer>
+<jsp:include page="./component/footer.jsp"/>
 <!-- Footer -->
 
 
 <!-- MDB -->
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/mdb.min.js"></script>
-<script >
+<script>
 
     var quantitys = [
         <c:forEach items="${product.quantitys}" var="quantity">
@@ -420,16 +248,17 @@
         var price = 0;
         prices.map(item => {
             console.log(item.color == idColor && item.size == idSize)
-            if(item.color == idColor && item.size == idSize){
+            if (item.color == idColor && item.size == idSize) {
                 price = item.price
             }
         })
         document.getElementById("myComboxColor").addEventListener("change", selectColor);
-        document.getElementById("priceProduct").textContent  = price
+        document.getElementById("priceProduct").textContent = price
         setQuantity()
     }
 
     selectColor()
+
     function selectColor() {
         // Lấy ra id của giá trị được chọn trong combox
         var idColor = document.getElementById("myComboxColor").value;
@@ -437,9 +266,9 @@
         const selectElement = document.getElementById("myComboxSize");
         const options = [];
         prices.map(item => {
-            if(item.color == idColor ){
+            if (item.color == idColor) {
                 sizes.map(item2 => {
-                    if(item2.id == item.size){
+                    if (item2.id == item.size) {
                         const option = document.createElement("option");
                         option.value = item2.id;
                         option.text = item2.name;
@@ -455,18 +284,20 @@
             selectElement.appendChild(option);
         }
     }
+
     setQuantity()
-    function setQuantity(){
+
+    function setQuantity() {
         var idSize = document.getElementById("myComboxSize").value;
         var idColor = document.getElementById("myComboxColor").value;
         var quantity = 0;
         quantitys.map(item => {
-            if(item.color == idColor && item.size == idSize){
+            if (item.color == idColor && item.size == idSize) {
                 quantity = item.quantity
             }
         })
         document.getElementById("myComboxColor").addEventListener("change", selectColor);
-        document.getElementById("quantityProduct").textContent  = quantity
+        document.getElementById("quantityProduct").textContent = quantity
 
         const inputElement = document.getElementById("inputNumber");
         inputElement.setAttribute("max", quantity);

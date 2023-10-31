@@ -9,5 +9,5 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface ColorRepository extends JpaRepository<Color, UUID> {
+public interface ColorRepository extends JpaRepository<Color, String> {
 }

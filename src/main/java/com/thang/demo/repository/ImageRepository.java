@@ -9,5 +9,5 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface ImageRepository extends JpaRepository<Image, UUID> {
+public interface ImageRepository extends JpaRepository<Image, String> {
 }

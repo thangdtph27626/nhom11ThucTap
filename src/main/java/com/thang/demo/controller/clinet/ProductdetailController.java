@@ -1,5 +1,6 @@
 package com.thang.demo.controller.clinet;
 
+import com.thang.demo.request.CardDetailRequest;
 import com.thang.demo.request.SanPhamRequest;
 import com.thang.demo.response.ProductDetailResponse;
 import com.thang.demo.response.SanPhamResponseCustom;
@@ -32,6 +33,7 @@ public class ProductdetailController {
     public String findProduct(@PathVariable("id") String id, Model model) {
         SanPhamRequest request = new SanPhamRequest();
         model.addAttribute("listProduct", productService.findProduct(request));
+        model.addAttribute("id", id);
         model.addAttribute("product", productDetailService.findProductDetailByIdProduct(id));
         return "user/detail-product";
     }

@@ -9,5 +9,5 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface FormRepository extends JpaRepository<Form, UUID> {
+public interface FormRepository extends JpaRepository<Form, String> {
 }

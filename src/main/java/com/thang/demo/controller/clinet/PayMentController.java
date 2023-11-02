@@ -23,7 +23,7 @@ public class PayMentController extends BaseController {
 
     @GetMapping("/payment-success")
     public String paymentSuccess(PayMentVnpayRequest request, Model model){
-//        payMentService.paymentSuccess(userId, request);
+        payMentService.paymentSuccess(session.getUserId(), request);
         model.addAttribute("vnp_ResponseCode",request.getVnp_ResponseCode() );
         model.addAttribute("vnp_TxnRef",request.getVnp_TxnRef() );
         return "user/SimpleSuccessPage";

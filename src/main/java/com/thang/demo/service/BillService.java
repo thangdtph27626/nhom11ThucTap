@@ -25,5 +25,6 @@ public interface BillService {
 
     boolean cancelBill(ChangStatusBillRequest request);
 
+    
     Bill findById(String id);
 }

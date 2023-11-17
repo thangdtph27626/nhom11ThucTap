@@ -14,7 +14,7 @@ import java.util.UUID;
 /**
  * @author thangdt
  */
-public interface ProductDetailRepository extends JpaRepository<ProductDetail, UUID> {
+public interface ProductDetailRepository extends JpaRepository<ProductDetail, String> {
 
     @Query(value = """
             select\s

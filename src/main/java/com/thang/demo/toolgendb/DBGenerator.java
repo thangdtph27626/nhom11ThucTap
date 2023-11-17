@@ -1,6 +1,7 @@
 //package com.thang.demo.toolgendb;
 //
 //import com.thang.demo.entity.*;
+//import com.thang.demo.infrastructure.ConvertDateToLong;
 //import com.thang.demo.infrastructure.constant.GenderProductDetail;
 //import com.thang.demo.infrastructure.constant.Roles;
 //import com.thang.demo.infrastructure.constant.Status;
@@ -29,6 +30,7 @@
 //import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.context.ConfigurableApplicationContext;
 //import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //
 //import java.math.BigDecimal;
 //import java.util.ArrayList;
@@ -176,6 +178,7 @@
 //                    .citizenIdentity(citizenIdentities.get(i))
 //                    .status(Status.DANG_SU_DUNG)
 //                    .roles(roless.get(i))
+//                    .password(new BCryptPasswordEncoder().encode("123456"))
 //                    .build();
 //            userReposiory.save(user);
 //            Cart cart = Cart.builder().user(user).build();
@@ -184,6 +187,17 @@
 //
 //
 //        productDetailRepository.save(productDetail);
+//        Voucher voucher1 = Voucher.builder().code("VC889")
+//                .name("Sale ngày khai trương").value(new BigDecimal(100000))
+//                .startDate(new ConvertDateToLong().dateToLong("25/05/2023")).endDate(new ConvertDateToLong().dateToLong("01/12/2023"))
+//                .quantity(100).status(Status.DANG_SU_DUNG).build();
+//        Voucher voucher2 = Voucher.builder().code("VC8f89")
+//                .name("Sale sốc").value(new BigDecimal(100000))
+//                .startDate(new ConvertDateToLong().dateToLong("15/06/2023")).endDate(new ConvertDateToLong().dateToLong("25/12/2023"))
+//                .quantity(100).status(Status.DANG_SU_DUNG).build();
+//        voucherRepository.save(voucher2);
+//        voucherRepository.save(voucher1);
+//
 //    }
 //
 //    public static void main(String[] args) {

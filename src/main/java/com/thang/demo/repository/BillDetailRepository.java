@@ -1,5 +1,4 @@
 package com.thang.demo.repository;
-
 import com.thang.demo.entity.Address;
 import com.thang.demo.entity.Bill;
 import com.thang.demo.entity.BillDetail;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * @author thangdt
+ * @author  dịu
  */
 public interface BillDetailRepository extends JpaRepository<BillDetail, String> {
 

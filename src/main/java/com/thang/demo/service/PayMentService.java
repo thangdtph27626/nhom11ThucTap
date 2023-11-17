@@ -17,4 +17,6 @@ public interface PayMentService {
      boolean paymentSuccess(String idEmployees, PayMentVnpayRequest request);
 
      PaymentsMethod findByCodeBill(String code);
+
+     PaymentsMethod findByBill(String idBill);
 }

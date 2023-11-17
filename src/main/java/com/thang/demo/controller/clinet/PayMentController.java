@@ -1,5 +1,6 @@
 package com.thang.demo.controller.clinet;
 
+import com.thang.demo.controller.base.BaseController;
 import com.thang.demo.request.PayMentVnpayRequest;
 import com.thang.demo.service.PayMentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/payment")
-public class PayMentController {
+public class PayMentController extends BaseController {
 
-    @Value("${user}")
-    private String userId;
 
     @Autowired
     private PayMentService payMentService;

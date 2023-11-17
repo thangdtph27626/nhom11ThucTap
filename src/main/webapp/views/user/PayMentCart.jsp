@@ -540,7 +540,7 @@
                     return `
                 <tr style="height: 81px;
                  padding-left: 13px;" onclick="selectAddress('` + address.province + `','` + address.district + `','` + address.ward + `',` + address.toDistrictId + `,` + address.wardCode + `)">
-                <td>` + address.line + `</td>
+                <td>` + address.line + `,` + address.province + `,` + address.district + `,` + address.ward +  `</td>
                 </tr>
                 `
                 }))

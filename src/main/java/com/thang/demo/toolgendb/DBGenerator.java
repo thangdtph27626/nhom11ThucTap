@@ -30,6 +30,7 @@
 //import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.context.ConfigurableApplicationContext;
 //import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //
 //import java.math.BigDecimal;
 //import java.util.ArrayList;
@@ -177,6 +178,7 @@
 //                    .citizenIdentity(citizenIdentities.get(i))
 //                    .status(Status.DANG_SU_DUNG)
 //                    .roles(roless.get(i))
+//                    .password(new BCryptPasswordEncoder().encode("123456"))
 //                    .build();
 //            userReposiory.save(user);
 //            Cart cart = Cart.builder().user(user).build();

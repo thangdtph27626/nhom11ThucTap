@@ -144,6 +144,35 @@ public class BillServiceImpl implements BillService {
         return billRepository.getAll(request);
     }
 
+       @Override
+    public boolean cancelBill(ChangStatusBillRequest request) {
+        Optional<Bill> bill = billRepository.findById(request.getId());
+        if (!bill.isPresent()) {
+            return false;
+        }
+
+        bill.get().setStatusBill(StatusBill.DA_HUY);
+        BillHistory billHistory = new BillHistory();
+        billHistory.setBill(bill.get());
+        billHistory.setStatusBill(bill.get().getStatusBill());
+        billHistory.setActionDescription(request.getDesc());
+        billHistoryRepository.save(billHistory);
+        List<BillDetailResponse> billDetailResponse = billDetailRepository.findAllByIdBill(bill.get().getId());
+        billDetailResponse.forEach(item -> {
+            Optional<ProductDetail> productDetail = productDetailRepository.findById(item.getIdProduct());
+            productDetail.get().setQuantity(item.getQuantity() + productDetail.get().getQuantity());
+            productDetailRepository.save(productDetail.get());
+        });
+         billRepository.save(bill.get());
+        return true;
+    }
+
+        
+    @Override
+    public Bill findById(String id) {
+        return billRepository.findById(id).orElse(null);
+    }
+    
     @Override
     public boolean changedStatusbill( ChangStatusBillRequest request) {
         Optional<Bill> bill = billRepository.findById(request.getId());
@@ -169,31 +198,7 @@ public class BillServiceImpl implements BillService {
         return true;
     }
 
-    @Override
-    public boolean cancelBill(ChangStatusBillRequest request) {
-        Optional<Bill> bill = billRepository.findById(request.getId());
-        if (!bill.isPresent()) {
-            return false;
-        }
 
-        bill.get().setStatusBill(StatusBill.DA_HUY);
-        BillHistory billHistory = new BillHistory();
-        billHistory.setBill(bill.get());
-        billHistory.setStatusBill(bill.get().getStatusBill());
-        billHistory.setActionDescription(request.getDesc());
-        billHistoryRepository.save(billHistory);
-        List<BillDetailResponse> billDetailResponse = billDetailRepository.findAllByIdBill(bill.get().getId());
-        billDetailResponse.forEach(item -> {
-            Optional<ProductDetail> productDetail = productDetailRepository.findById(item.getIdProduct());
-            productDetail.get().setQuantity(item.getQuantity() + productDetail.get().getQuantity());
-            productDetailRepository.save(productDetail.get());
-        });
-         billRepository.save(bill.get());
-        return true;
-    }
 
-    @Override
-    public Bill findById(String id) {
-        return billRepository.findById(id).orElse(null);
-    }
+
 }

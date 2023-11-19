@@ -1,5 +1,8 @@
 package com.thang.demo.service.iml;
 
+import com.thang.demo.entity.ProductDetail;
+import com.thang.demo.infrastructure.constant.GenderProductDetail;
+import com.thang.demo.infrastructure.constant.Status;
 import com.thang.demo.repository.ProductDetailRepository;
 import com.thang.demo.repository.ProductRepository;
 import com.thang.demo.response.*;
@@ -40,10 +43,32 @@ public class ProductDetailServiceImpl implements ProductDetailService {
             sizes.put(item.getIdColor(), new SimpleResponse(item.getIdSize(), item.getSize()));
             quantitys.add(new QuantityProductResponse(item.getQuantity(), item.getIdSize(), item.getIdColor()));
         });
-        response.setColors( colors.values().stream().toList());
+        response.setColors(colors.values().stream().toList());
         response.setPrices(prices);
         response.setSizes(sizes.values().stream().toList());
         response.setQuantitys(quantitys);
         return response;
+    }
+
+    @Override
+    public List<ProductDetail> getAllProductDetail() {
+        return productDetailRepository.findAll();
+    }
+
+    @Override
+    public ProductDetail getProductDetailById(String id) {
+        return productDetailRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public ProductDetail saveProductDetail(ProductDetail ProductDetail) {
+        ProductDetail.setStatus(Status.DANG_SU_DUNG);
+        ProductDetail.setGender(GenderProductDetail.NAM_VA_NU);
+        return productDetailRepository.save(ProductDetail);
+    }
+
+    @Override
+    public void deleteProductDetail(String id) {
+        productDetailRepository.deleteById(id);
     }
 }

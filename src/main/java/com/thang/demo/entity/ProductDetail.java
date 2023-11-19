@@ -20,7 +20,7 @@ import lombok.ToString;
 import java.math.BigDecimal;
 
 /**
- * @author Nguyễn Vinh
+ * @author Nguyễn Bằng
  */
 @Entity
 @Getter

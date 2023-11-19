@@ -11,4 +11,8 @@ import java.util.List;
 public interface ColorService {
 
      List<Color> simpleColor();
+     List<Color> getAllColors();
+     Color getColorById(String id);
+     Color saveColor(Color color);
+     void deleteColor(String id);
 }
